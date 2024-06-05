@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaksi Penjualan dan Pembelian Barang</title>
+    <style>
+      #alertBox {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+    <script>
+      // Objek barang dengan kode dan harga
+      const barang = {
+        "001": { nama: "A", harga: 10000 },
+        "002": { nama: "B", harga: 20000 },
+        "003": { nama: "C", harga: 30000 },
+      };
+
+      function hitungTotal() {
+        const kode = document.getElementById("kode").value;
+        const jumlah = parseInt(document.getElementById("jumlah").value);
+
+        if (barang[kode]) {
+          const total = barang[kode].harga * jumlah;
+          alert("Total yang harus dibayar: Rp " + total);
+          bayar(total);
+        } else {
+          alert("Kode barang tidak valid.");
+        }
+      }
+
+      function bayar(total) {
+        const uangBayar = parseFloat(
+          prompt("Masukkan jumlah uang yang dibayarkan:")
+        );
+        if (uangBayar >= total) {
+          const kembalian = uangBayar - total;
+          const alertBox = document.createElement("div");
+          alertBox.id = "alertBox";
+          alertBox.innerText = "Total kembalian: Rp " + kembalian;
+          document.body.appendChild(alertBox);
+        } else {
+          alert("Jumlah uang yang dibayarkan kurang.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Transaksi Penjualan dan Pembelian Barang</h1>
+    <form>
+      <label for="kode">Kode Barang:</label>
+      <select id="kode">
+        <option value="001">001</option>
+        <option value="002">002</option>
+        <option value="003">003</option>
+      </select
+      ><br />
+      <label for="jumlah">Jumlah:</label>
+      <input type="number" id="jumlah" min="1" value="1" /><br />
+      <button type="button" onclick="hitungTotal()">Hitung Total</button>
+    </form>
+  </body>
+</html>
